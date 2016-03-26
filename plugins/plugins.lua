@@ -165,7 +165,7 @@ local function run(msg, matches)
   end
 
   -- Enable a plugin
-  if matches[1] == 'enable' and is_sudo(msg) then --after changed to moderator mode, set only sudo
+  if matches[1] == '+' and is_sudo(msg) then --after changed to moderator mode, set only sudo
     local plugin_name = matches[2]
     print("enable: "..matches[2])
     return enable_plugin(plugin_name)
@@ -180,7 +180,7 @@ local function run(msg, matches)
   end
 
   -- Disable a plugin
-  if matches[1] == 'disable' and is_sudo(msg) then --after changed to moderator mode, set only sudo
+  if matches[1] == '-' and is_sudo(msg) then --after changed to moderator mode, set only sudo
     if matches[2] == 'plugins' then
     	return 'This plugin can\'t be disabled'
     end
@@ -189,7 +189,7 @@ local function run(msg, matches)
   end
 
   -- Reload all the plugins!
-  if matches[1] == 'reload' and is_sudo(msg) then --after changed to moderator mode, set only sudo
+  if matches[1] == 'r' and is_sudo(msg) then --after changed to moderator mode, set only sudo
     return reload_plugins(true)
   end
 end
@@ -209,11 +209,11 @@ return {
           },
   patterns = {
     "^!plugins$",
-    "^!plugins? (enable) ([%w_%.%-]+)$",
-    "^!plugins? (disable) ([%w_%.%-]+)$",
+    "^!plugins? (+) ([%w_%.%-]+)$",
+    "^!plugins? (_) ([%w_%.%-]+)$",
     "^!plugins? (enable) ([%w_%.%-]+) (chat)",
     "^!plugins? (disable) ([%w_%.%-]+) (chat)",
-    "^!plugins? (reload)$" },
+    "^!plugins? (r)$" },
   run = run,
   moderated = true, -- set to moderator mode
   --privileged = true
